@@ -219,13 +219,14 @@ function CubeScape() {
   );
 }
 
-function BoxAquariumModel() {
+function BoxAquariumModel({ onReady }) {
   const groupRef = useRef();
   const { scene, animations } = useGLTF('/box_aquarium.glb');
   const { actions, names } = useAnimations(animations, groupRef);
   const [loaded, setLoaded] = useState(false);
   const fadeRef = useRef(0);
   const materialsRef = useRef([]);
+  const readyNotifiedRef = useRef(false);
 
   // Normalize materials so they pick up scene lighting
   useEffect(() => {
@@ -240,7 +241,7 @@ function BoxAquariumModel() {
           mat.metalness = 0.1;
           mat.envMapIntensity = 0.9;
           mat.transparent = true;
-          mat.opacity = 0;
+          mat.opacity = 0.2;
           mat.needsUpdate = true;
           materialsRef.current.push(mat);
         }
@@ -261,11 +262,18 @@ function BoxAquariumModel() {
 
   useFrame((state, delta) => {
     if (!loaded || !materialsRef.current.length) return;
-    fadeRef.current = Math.min(1, fadeRef.current + delta * 0.8);
+    fadeRef.current = Math.min(1, fadeRef.current + delta * 1.2);
     materialsRef.current.forEach((mat) => {
       mat.opacity = fadeRef.current;
     });
   });
+
+  useEffect(() => {
+    if (loaded && !readyNotifiedRef.current) {
+      readyNotifiedRef.current = true;
+      onReady?.();
+    }
+  }, [loaded, onReady]);
 
   return (
     <primitive
@@ -380,7 +388,7 @@ function FloatingParticles() {
   );
 }
 
-export default function SharkScene({ onBite }) {
+export default function SharkScene({ onBite, onReady = () => {} }) {
   return (
     <Canvas
       camera={{ position: [0, 0, 2.6], fov: 34, near: 0.1, far: 40 }}
@@ -403,7 +411,7 @@ export default function SharkScene({ onBite }) {
       
       {/* Model */}
       <Suspense fallback={null}>
-        <BoxAquariumModel />
+        <BoxAquariumModel onReady={onReady} />
       </Suspense>
     </Canvas>
   );

@@ -168,6 +168,19 @@
   z-index: 1;
 }
 
+.heroFallback {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.heroFallbackImage {
+  object-fit: cover;
+  filter: saturate(1.1) contrast(1.05);
+}
+
 .canvasEdgeFade {
   position: absolute;
   left: 0;
@@ -210,6 +223,26 @@
   flex-direction: column;
   justify-content: center;
   animation: fadeInUp 1.2s var(--ease-out-expo) 2.5s both;
+  isolation: isolate;
+}
+
+.heroContent::before {
+  content: '';
+  position: absolute;
+  inset: -40px -24px;
+  background: linear-gradient(
+    180deg,
+    rgba(4, 12, 24, 0.78) 0%,
+    rgba(4, 12, 24, 0.64) 45%,
+    rgba(4, 12, 24, 0.58) 100%
+  );
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border-radius: 24px;
+  z-index: -1;
+  box-shadow:
+    0 24px 60px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(255, 255, 255, 0.04);
 }
 
 /* Visually hidden but accessible for screen readers */
@@ -229,6 +262,18 @@
   position: relative;
   margin-bottom: var(--space-xl);
   display: inline-block;
+}
+
+.heroLogoImageWrapper {
+  display: flex;
+  justify-content: center;
+  margin: -8px 0 var(--space-lg);
+}
+
+.heroLogoImage {
+  width: min(420px, 80vw);
+  height: auto;
+  filter: drop-shadow(0 18px 45px rgba(0, 0, 0, 0.4));
 }
 
 .logo {
@@ -261,19 +306,21 @@
 .tagline {
   font-size: clamp(1rem, 3vw, 1.5rem);
   font-weight: 300;
-  color: var(--sand);
+  color: #e8f4ff;
   margin-bottom: var(--space-lg);
   letter-spacing: 0.1em;
   text-transform: uppercase;
   opacity: 0.9;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.45);
 }
 
 .subtitle {
   font-size: clamp(1.1rem, 2.5vw, 1.4rem);
   max-width: 600px;
   margin: 0 auto var(--space-xl);
-  color: rgba(247, 249, 252, 0.8);
+  color: rgba(247, 249, 252, 0.92);
   line-height: 1.8;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.35);
 }
 
 .ctaHighlights {
@@ -302,8 +349,9 @@
 .ctaDetail {
   max-width: 740px;
   margin: 0 auto var(--space-lg);
-  color: rgba(247, 249, 252, 0.86);
+  color: rgba(247, 249, 252, 0.92);
   line-height: 1.7;
+  text-shadow: 0 1px 14px rgba(0, 0, 0, 0.32);
 }
 
 .ctaActions {

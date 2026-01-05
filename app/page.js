@@ -207,9 +207,29 @@ const services = [
 export default function Home() {
   const [showBite, setShowBite] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [sceneReady, setSceneReady] = useState(false);
   useEffect(() => {
     setIsLoaded(true);
   }, []);
+
+  // Dev helper: capture the hero canvas to an image when ?captureCanvas=1 is present
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    if (!params.has('captureCanvas')) return;
+    if (!sceneReady) return;
+    const timer = setTimeout(() => {
+      const canvas = document.querySelector('canvas');
+      if (!canvas) return;
+      try {
+        const data = canvas.toDataURL('image/png');
+        window.location.href = data;
+      } catch (err) {
+        // no-op on failure
+      }
+    }, 400);
+    return () => clearTimeout(timer);
+  }, [sceneReady]);
 
   const handleBite = () => {
     setShowBite(true);
@@ -230,8 +250,25 @@ export default function Home() {
       >
         {/* 3D Shark Canvas - behind water layers */}
         <div className={styles.heroCanvas}>
+          <div
+            className={styles.heroFallback}
+            style={{ opacity: sceneReady ? 0 : 1 }}
+            aria-hidden="true"
+          >
+            <Image
+              src="/images/hero-fallback.png"
+              alt="Underwater aquarium scene"
+              fill
+              priority
+              sizes="100vw"
+              className={styles.heroFallbackImage}
+            />
+          </div>
           <Suspense fallback={null}>
-            <SharkScene onBite={handleBite} />
+            <SharkScene
+              onBite={handleBite}
+              onReady={() => setSceneReady(true)}
+            />
           </Suspense>
         </div>
         <div className={styles.canvasEdgeFade} aria-hidden="true" />
@@ -292,6 +329,16 @@ export default function Home() {
                 />
               </svg>
             )}
+          </div>
+          <div className={styles.heroLogoImageWrapper}>
+            <Image
+              src="/logo.png"
+              alt="JAWS Aquariums logo"
+              width={420}
+              height={250}
+              priority
+              className={styles.heroLogoImage}
+            />
           </div>
           <p className={styles.tagline}>Custom Aquarium Design & Installation</p>
           <p className={styles.subtitle}>

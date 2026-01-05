@@ -1,0 +1,45 @@
+<svg width="1920" height="1080" viewBox="0 0 1920 1080" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Underwater aquarium scene fallback">
+  <defs>
+    <linearGradient id="bg" x1="50%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#071224"/>
+      <stop offset="45%" stop-color="#0d2c4e"/>
+      <stop offset="100%" stop-color="#0a1a30"/>
+    </linearGradient>
+    <radialGradient id="light" cx="50%" cy="32%" r="55%">
+      <stop offset="0%" stop-color="#4ecdc4" stop-opacity="0.25"/>
+      <stop offset="55%" stop-color="#2fb7c6" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#0a1a30" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glow" cx="50%" cy="55%" r="65%">
+      <stop offset="0%" stop-color="#1e5b94" stop-opacity="0.55"/>
+      <stop offset="100%" stop-color="#1e5b94" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <rect width="1920" height="1080" fill="url(#light)"/>
+  <rect width="1920" height="1080" fill="url(#glow)"/>
+  <g opacity="0.4">
+    <path d="M0 760 Q480 700 960 760 T1920 760 V1080 H0 Z" fill="#0f2944"/>
+    <path d="M0 820 Q520 780 1040 840 T1920 820 V1080 H0 Z" fill="#0c243b" opacity="0.8"/>
+  </g>
+  <g stroke="#4ecdc4" stroke-width="2" stroke-opacity="0.25" fill="none">
+    <path d="M180 1020 C420 960 540 940 780 990 S1240 1060 1560 980" />
+    <path d="M260 880 C520 820 760 820 1040 900 S1500 1040 1760 960" opacity="0.6"/>
+  </g>
+  <g fill="#4ecdc4" fill-opacity="0.32">
+    <circle cx="320" cy="260" r="4"/>
+    <circle cx="420" cy="320" r="3"/>
+    <circle cx="1180" cy="260" r="5"/>
+    <circle cx="1420" cy="340" r="3.5"/>
+    <circle cx="960" cy="210" r="3"/>
+    <circle cx="1560" cy="260" r="4.5"/>
+  </g>
+  <g fill="#ffffff" fill-opacity="0.18">
+    <circle cx="300" cy="1040" r="10"/>
+    <circle cx="540" cy="1010" r="8"/>
+    <circle cx="820" cy="1060" r="12"/>
+    <circle cx="1180" cy="1035" r="9"/>
+    <circle cx="1500" cy="1045" r="11"/>
+  </g>
+</svg>
+
