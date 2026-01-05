@@ -1,0 +1,11 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.jawsaquariums.com
+
+# Sitemaps
+Sitemap: https://www.jawsaquariums.com/sitemap.xml
+
+
