@@ -139,6 +139,24 @@
     var(--ocean-blue) 50%,
     #0f3460 100%
   );
+  clip-path: inset(0 0 var(--cropOffset, 0px) 0);
+}
+
+.hero::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 220px;
+  pointer-events: none;
+  z-index: 4;
+  background: linear-gradient(
+    180deg,
+    rgba(15, 52, 96, 0) 0%,
+    rgba(15, 52, 96, 0.65) 55%,
+    #0f3460 100%
+  );
 }
 
 .heroCanvas {
@@ -150,55 +168,47 @@
   z-index: 1;
 }
 
+.canvasEdgeFade {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 260px;
+  pointer-events: none;
+  z-index: 3;
+  background: linear-gradient(
+    180deg,
+    rgba(13, 28, 56, 0) 0%,
+    rgba(13, 28, 56, 0.45) 12%,
+    rgba(10, 22, 40, 1) 100%
+  );
+}
+
 /* Water depth layers - creates the illusion of swimming through water */
 .waterDepthFront {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 2;
-  pointer-events: none;
-  background: 
-    radial-gradient(ellipse at 30% 20%, rgba(30, 91, 148, 0.15) 0%, transparent 50%),
-    radial-gradient(ellipse at 70% 80%, rgba(46, 155, 186, 0.1) 0%, transparent 40%),
-    linear-gradient(180deg, transparent 0%, transparent 60%, rgba(30, 91, 148, 0.2) 100%);
+  display: none;
 }
 
 .waterDepthMid {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  z-index: 4;
-  pointer-events: none;
-  background: 
-    linear-gradient(90deg, rgba(10, 22, 40, 0.3) 0%, transparent 15%, transparent 85%, rgba(10, 22, 40, 0.3) 100%),
-    radial-gradient(ellipse at 50% 100%, rgba(30, 91, 148, 0.25) 0%, transparent 60%);
+  display: none;
 }
 
 .waterSurface {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 30%;
-  z-index: 5;
-  pointer-events: none;
-  background: linear-gradient(
-    180deg,
-    rgba(135, 206, 235, 0.08) 0%,
-    rgba(78, 205, 196, 0.05) 30%,
-    transparent 100%
-  );
+  display: none;
 }
 
 .heroContent {
   position: relative;
   z-index: 10;
   text-align: center;
-  padding: var(--space-lg);
+  padding-top: 67px;
+  padding-bottom: 67px;
+  padding-left: var(--space-lg);
+  padding-right: var(--space-lg);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   animation: fadeInUp 1.2s var(--ease-out-expo) 2.5s both;
 }
 
@@ -266,6 +276,43 @@
   line-height: 1.8;
 }
 
+.ctaHighlights {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-sm);
+  max-width: 760px;
+  margin: 0 auto var(--space-md);
+}
+
+.ctaPill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-xs);
+  padding: 10px 14px;
+  border-radius: 999px;
+  background: rgba(78, 205, 196, 0.12);
+  border: 1px solid rgba(78, 205, 196, 0.35);
+  color: var(--pearl);
+  font-size: 0.95rem;
+  letter-spacing: 0.02em;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+}
+
+.ctaDetail {
+  max-width: 740px;
+  margin: 0 auto var(--space-lg);
+  color: rgba(247, 249, 252, 0.86);
+  line-height: 1.7;
+}
+
+.ctaActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--space-md);
+}
+
 .ctaButton {
   display: inline-flex;
   align-items: center;
@@ -280,6 +327,20 @@
   box-shadow: 
     0 4px 20px rgba(78, 205, 196, 0.3),
     0 8px 40px rgba(0, 0, 0, 0.2);
+}
+
+.secondaryCta {
+  background: rgba(255, 255, 255, 0.05);
+  color: var(--pearl);
+  border: 1px solid rgba(78, 205, 196, 0.5);
+  box-shadow:
+    inset 0 0 0 1px rgba(78, 205, 196, 0.2),
+    0 4px 20px rgba(0, 0, 0, 0.25);
+}
+
+.secondaryCta:hover {
+  background: rgba(78, 205, 196, 0.12);
+  color: var(--pearl);
 }
 
 .ctaButton:hover {
@@ -299,20 +360,7 @@
 
 /* Water Overlay */
 .waterOverlay {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  height: 0;
-  background: linear-gradient(
-    0deg,
-    rgba(30, 91, 148, 0.5) 0%,
-    rgba(46, 155, 186, 0.25) 50%,
-    transparent 100%
-  );
-  animation: waterRise 2s var(--ease-in-out-circ) 0.5s forwards;
-  z-index: 6;
-  pointer-events: none;
+  display: none;
 }
 
 .waterOverlay::before {
@@ -879,6 +927,10 @@
     align-items: center;
   }
   
+  .ctaHighlights {
+    justify-content: flex-start;
+  }
+
   .statsGrid {
     grid-template-columns: 1fr;
   }

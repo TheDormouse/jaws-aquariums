@@ -60,7 +60,6 @@ function HeaderLogo() {
       onMouseEnter={handleMouseEnter}
       onAnimationEnd={handleAnimationEnd}
     >
-      <span className={styles.headerLogoText}>JUST ADD WATER</span>
       <span className={styles.headerBite} aria-hidden="true" />
       <span className={styles.headerCrumbs} aria-hidden="true" />
     </a>
@@ -208,7 +207,6 @@ const services = [
 export default function Home() {
   const [showBite, setShowBite] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -225,13 +223,18 @@ export default function Home() {
       </header>
 
       {/* Hero Section */}
-      <section className={styles.hero} aria-label="Welcome to JAWS Aquariums">
+      <section
+        className={styles.hero}
+        aria-label="Welcome to JAWS Aquariums"
+        style={{ '--cropOffset': `0px` }}
+      >
         {/* 3D Shark Canvas - behind water layers */}
         <div className={styles.heroCanvas}>
           <Suspense fallback={null}>
             <SharkScene onBite={handleBite} />
           </Suspense>
         </div>
+        <div className={styles.canvasEdgeFade} aria-hidden="true" />
 
         {/* Water depth layers - in front of shark */}
         <div className={styles.waterDepthFront} aria-hidden="true" />
@@ -296,10 +299,24 @@ export default function Home() {
             We transform spaces with bespoke aquariums that reflect 
             your vision, style, and sophistication.
           </p>
-          <a href="tel:+17703801020" className={styles.ctaButton}>
-            Schedule a Consultation
-            <ArrowIcon />
-          </a>
+          <div className={styles.ctaHighlights} role="list">
+            <span className={styles.ctaPill} role="listitem">Design → Build → Maintenance in-house</span>
+            <span className={styles.ctaPill} role="listitem">Museum-grade acrylic & custom cabinetry</span>
+            <span className={styles.ctaPill} role="listitem">White-glove installs with 48hr service response</span>
+          </div>
+          <p className={styles.ctaDetail}>
+            We handle permitting, cabinetry, livestock sourcing, and proactive care so your statement piece stays crystal clear day one to year ten.
+          </p>
+          <div className={styles.ctaActions}>
+            <a href="tel:+17703801020" className={styles.ctaButton}>
+              Schedule a Consultation
+              <ArrowIcon />
+            </a>
+            <a href="mailto:jawservice@earthlink.net" className={`${styles.ctaButton} ${styles.secondaryCta}`}>
+              Email a Design Packet
+              <ArrowIcon />
+            </a>
+          </div>
         </div>
       </section>
 
